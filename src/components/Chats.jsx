@@ -2,6 +2,7 @@ import { FaVideo } from "react-icons/fa6";
 import { TiUserAdd } from "react-icons/ti";
 import { HiDotsHorizontal } from "react-icons/hi";
 import ChatInput from "./ChatInput";
+import Messages from "./Messages";
 
 const Chats = () => {
     return (
@@ -15,7 +16,7 @@ const Chats = () => {
                 </div>
             </div>
             <div className="messages">
-                Message
+                <Messages />
             </div>
             <div className="chat-input">
                 <ChatInput />
