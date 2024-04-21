@@ -130,6 +130,9 @@
   justify-content: space-between;
   color: #ddddf7;
 }
+.nav-logo{
+  font-weight: 700;
+}
 .home-logo {
   font-weight: bold;
 }
