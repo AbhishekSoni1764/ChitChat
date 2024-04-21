@@ -1,21 +1,50 @@
-import React from 'react'
+import { useContext, useState } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../firebase"
+import { LoginContext } from "../context/LoginContext";
+
 
 const SearchBar = () => {
+    const activeUser = useContext(LoginContext);
+    const [username, setUsername] = useState();
+    const [user, setUser] = useState(activeUser);
+    const [error, setError] = useState(false);
+
+    const handleSearch = async () => {
+        const q = query(collection(db, "users"), where("displayName", "==", username));
+        try {
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                setUser(doc.data())
+            });
+        } catch (error) {
+            setError(true);
+            console.log("Error:", error);
+        }
+
+    };
+
+    const handleKeyDown = (e) => {
+        e.code == "Enter" && handleSearch();
+    };
     return (
         <div className="search">
             <div className="searchForm">
                 <input
                     type="text"
                     placeholder='Find a User'
+                    onKeyDown={handleKeyDown}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
             </div>
-            <div className="userChat">
-                <img src="https://img.freepik.com/free-photo/young-woman-sunglasses-hat-black-leather-jacket-posing-outdoor_231208-13405.jpg?t=st=1713560377~exp=1713563977~hmac=ca3b1e2ad7e11bd32d6b29d1700fe7c09e9cb8befa053e359de36943e4a70c76&w=360" alt="" />
+            {error && alert("User not Found!")}
+            {user && <div className="userChat">
+                <img src={user.photoURL} alt="" />
                 <div className="userChatInfo">
-                    <span>Abhishek</span>
+                    <span>{user.displayName}</span>
                     <p>Hey There !</p>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }
