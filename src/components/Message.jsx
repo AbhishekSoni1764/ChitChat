@@ -1,5 +1,4 @@
-
-const Message = () => {
+const Message = ({ message }) => {
     return (
         <div className="message owner">
             <div className="status">
