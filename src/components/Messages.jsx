@@ -9,10 +9,11 @@ const Messages = () => {
     const [messages, setMessages] = useState([]);
     const content = useContext(MessageContext);
     const conarray = Object.entries(content);
-    // console.log(conarray[0][1].chatid)
+    // console.log(conarray[0][1].user.photoURL)
     useEffect(() => {
         const unSub = onSnapshot(doc(db, "chats", conarray[0][1].chatid), (doc) => {
-            doc.exists() && setMessages(doc.data().message);
+            console.log(doc.data())
+            doc.exists() && setMessages(doc.data().messages);
         });
 
         return () => {
