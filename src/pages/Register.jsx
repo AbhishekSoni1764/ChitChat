@@ -30,7 +30,7 @@ const Register = () => {
         try {
             setUploadStatus(true);
             const res = await createUserWithEmailAndPassword(auth, email, password)
-            console.log(res)
+            // console.log(res)
             const storageRef = ref(storage, `${displayName + v4()}`);
 
             const uploadTask = uploadBytesResumable(storageRef, file);
@@ -39,7 +39,7 @@ const Register = () => {
                 (snapshot) => {
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     setUploadProgress(progress)
-                    console.log('Upload is ' + progress + '% done');
+                    // console.log('Upload is ' + progress + '% done');
                     switch (snapshot.state) {
                         case 'paused':
                             console.log('Upload is paused');

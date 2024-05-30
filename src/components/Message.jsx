@@ -1,15 +1,24 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
+import { useContext } from "react";
+import { LoginContext } from "../context/LoginContext";
+import { MessageContext } from "../context/MessageContext";
+import ReactTimeAgo from "react-time-ago";
 
-const Message = () => {
+const Message = ({ message }) => {
+    const activeUser = useContext(LoginContext);
+    const content = useContext(MessageContext);
+    const conarray = Object.entries(content);
+
+    // console.log(conarray[0][1].user.photoURL)
     return (
-        <div className="message owner">
+        <div className={`message ${message.senderId === activeUser.uid && "owner"}`}>
             <div className="status">
-                <img src="https://img.freepik.com/free-photo/young-woman-sunglasses-hat-black-leather-jacket-posing-outdoor_231208-13405.jpg?t=st=1713560377~exp=1713563977~hmac=ca3b1e2ad7e11bd32d6b29d1700fe7c09e9cb8befa053e359de36943e4a70c76&w=360" alt="" />
+                <img src={message.senderId === activeUser.uid ? activeUser.photoURL : conarray[0][1].user.photoURL} alt="" />
                 <p>Just Now</p>
             </div>
             <div className="chat-text ">
-                <p>Aur Bhai Kya Haal Chaal!</p>
-                <img src="https://img.freepik.com/free-photo/young-woman-sunglasses-hat-black-leather-jacket-posing-outdoor_231208-13405.jpg?t=st=1713560377~exp=1713563977~hmac=ca3b1e2ad7e11bd32d6b29d1700fe7c09e9cb8befa053e359de36943e4a70c76&w=360" alt="" />
+                <p>{message.textMsg}</p>
+                {message.img && <img src={message.img} alt="" />}
             </div>
         </div>
     )

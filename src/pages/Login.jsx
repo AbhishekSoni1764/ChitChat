@@ -39,7 +39,7 @@ const Login = () => {
                     <input type="password" placeholder="Password" ref={passwordElement} id="password" />
                     <button className="sign-up-btn" type="submit">Sign Up</button>
                 </form>
-                <p>You don't have an account? <Link to="/register">Register</Link></p>
+                <p>{`You don't have an account?`} <Link to="/register">Register</Link></p>
                 {error && <span>Not Found !</span>}
             </div>
         </div>
